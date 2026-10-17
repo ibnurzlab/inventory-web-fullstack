@@ -1,0 +1,6 @@
+{
+  "name": "GudangFlow - Sistem Manajemen Inventory Gudang",
+  "description": "Aplikasi manajemen inventory gudang modern untuk pencatatan barang, stok masuk, stok keluar, laporan, dan pemantauan stok menipis secara real-time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

@@ -1,0 +1,14 @@
+# Normalisasi akhir baris agar konsisten di semua sistem operasi
+* text=auto eol=lf
+
+# File biner (jangan diubah akhir barisnya)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+*.xlsx binary
+*.db binary

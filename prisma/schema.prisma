@@ -1,0 +1,63 @@
+// Prisma schema for GudangFlow - Sistem Manajemen Inventory Gudang
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../server/generated/prisma"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+/// Pengguna aplikasi. Role: ADMIN | STAFF
+model User {
+  id           String        @id @default(cuid())
+  username     String        @unique
+  name         String
+  passwordHash String
+  role         String        @default("STAFF")
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+}
+
+/// Master barang / katalog inventory
+model Item {
+  id           String        @id @default(cuid())
+  code         String        @unique
+  name         String
+  category     String        @default("Umum")
+  unit         String        @default("Pcs")
+  stock        Int           @default(0)
+  minStock     Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+
+  @@index([category])
+}
+
+/// Riwayat mutasi stok. type: IN (barang masuk) | OUT (barang keluar)
+model Transaction {
+  id          String   @id @default(cuid())
+  type        String
+  itemId      String
+  item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemCode    String
+  itemName    String
+  unit        String
+  quantity    Int
+  date        String
+  partner     String
+  notes       String   @default("")
+  createdById String?
+  createdBy   User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+
+  @@index([itemId])
+  @@index([date])
+  @@index([type])
+}

@@ -1,0 +1,20 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Database lokal (SQLite)
+*.db
+*.db-journal
+prisma/*.db
+prisma/*.db-journal
+
+# Prisma generated client
+server/generated/
